@@ -1,4 +1,5 @@
-name: Deploy React App to S3
+
+name: Deploy Ecommerce Client SDK
 
 on:
   push:
@@ -16,8 +17,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-           
+          node-version: '20' 
+
       - name: Create .env file
         run: |
           echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env
