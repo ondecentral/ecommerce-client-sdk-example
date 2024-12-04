@@ -26,6 +26,7 @@ const Product = () => {
 
   useEffect(() => {
     const getProduct = async () => {
+      lucia.buttonClick("product-page-load");
       setLoading(true);
       setLoading2(true);
       const response = await fetch(`https://fakestoreapi.com/products/${id}`);
