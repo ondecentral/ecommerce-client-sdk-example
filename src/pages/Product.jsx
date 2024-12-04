@@ -20,6 +20,8 @@ const Product = () => {
 
   const addProduct = (product) => {
     //lucia.buttonClick(JSON.stringify(product));
+    lucia.apiCall("product-page-load");
+
     lucia.trackConversion("product add to cart",0,product);
     dispatch(addCart(product));
   };
@@ -27,6 +29,7 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       lucia.buttonClick("product-page-load");
+      lucia.apiCall("product-page-load");
       setLoading(true);
       setLoading2(true);
       const response = await fetch(`https://fakestoreapi.com/products/${id}`);
