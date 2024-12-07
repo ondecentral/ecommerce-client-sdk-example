@@ -17,6 +17,18 @@ A feature-rich e-commerce website built with the React.js framework.
 
 ## Run Locally
 
+### Ensure .env is set
+
+Copy `.env.example` into `.env` if it hasn't been done already
+
+```
+REACT_APP_BASE_URL=https://api.ads.clickinsights.xyz
+REACT_APP_API_KEY=your-api-key-here
+REACT_APP_API_URL=api.ads.clickinsights.xyz/api/sdk
+```
+
+### Install
+
 Clone the project:
 
 ```bash
