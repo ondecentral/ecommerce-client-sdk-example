@@ -1,9 +1,19 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import lucia from '../lucia'
 
 const Navbar = () => {
     const state = useSelector(state => state.handleCart)
+
+    const handleLoginClick = () => {
+        console.log('Login button clicked');
+        lucia.trackConversion('login_button_click', 0, {
+            page: window.location.pathname,
+            timestamp: new Date().toISOString()
+        });
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">
             <div className="container">
@@ -28,7 +38,11 @@ const Navbar = () => {
                         </li>
                     </ul>
                     <div className="buttons text-center">
-                        <NavLink to="/login" className="btn btn-outline-dark m-2"><i className="fa fa-sign-in-alt mr-1"></i> Login</NavLink>
+                        <NavLink 
+                            to="/login" 
+                            className="btn btn-outline-dark m-2"
+                            onClick={handleLoginClick}
+                        ><i className="fa fa-sign-in-alt mr-1"></i> Login</NavLink>
                         <NavLink to="/register" className="btn btn-outline-dark m-2"><i className="fa fa-user-plus mr-1"></i> Register</NavLink>
                         <NavLink to="/cart" className="btn btn-outline-dark m-2"><i className="fa fa-cart-shopping mr-1"></i> Cart ({state.length}) </NavLink>
                     </div>

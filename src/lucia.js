@@ -2,6 +2,7 @@ import LuciaSDK from "luciasdk-t3";
 
 const lucia = {
   init: () => {
+    console.log("process.env.REACT_APP_BASE_URL: ",process.env.REACT_APP_BASE_URL);
     LuciaSDK.init({ 
       baseURL: process.env.REACT_APP_BASE_URL,
       api_key: process.env.REACT_APP_API_KEY,
