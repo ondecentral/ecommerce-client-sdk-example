@@ -2,6 +2,7 @@ import React from 'react'
 import { Footer, Navbar } from "../components";
 import lucia from '../lucia';
 const AboutPage = () => {
+  console.log('AboutPage',lucia);
   lucia.pageView("About");
   return (
     <>

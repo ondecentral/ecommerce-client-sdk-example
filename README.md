@@ -17,16 +17,21 @@ A feature-rich e-commerce website built with the React.js framework.
 
 ## Run Locally
 
-Clone the project:
+### Setting up .env
+
+⚠️ READ THIS ⚠️
+> In a Create React App project, the .env file should be in the root directory of your project, not in the src folder.
+
+### Clone the project:
 
 ```bash
-git clone https://github.com/ssahibsingh/React_E-Commerce
+git clone git@github.com:ondecentral/ecommerce-client-sdk-example.git
 ```
 
 Navigate to the project directory:
 
 ```bash
-cd React_E-Commerce
+cd ecommerce-client-sdk-example
 ```
 
 Install dependencies:
