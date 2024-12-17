@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState} from "react";
 
 const Home = () => {
+
+  const [isBannerVisible, setIsBannerVisible] = useState(true) 
+  
   return (
     <>
       <div className="hero border-1 pb-3">
