@@ -1,6 +1,6 @@
 import React from 'react'
 import { Footer, Navbar, Product } from "../components"
-import lucia from '../lucia'
+import lucia from 'lucia-sdk'
 
 const Products = () => {
   lucia.pageView("Products");

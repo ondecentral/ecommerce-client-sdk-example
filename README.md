@@ -4,7 +4,7 @@ A feature-rich e-commerce website built with the React.js framework.
 
 ## Demo
 
-[Live Demo](https://reactjs-ecommerce-app.vercel.app/)
+[Live Demo](https://demo.ondecentral.com) (deployed with AWS Amplify <img src="https://docs.amplify.aws/assets/logo-dark.svg" alt="Amplify Logo" width="20" height="20" style="margin-bottom:-5px;"/>)
 
 ## Features
 

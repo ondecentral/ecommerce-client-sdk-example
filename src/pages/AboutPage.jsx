@@ -1,6 +1,7 @@
 import React from 'react'
 import { Footer, Navbar } from "../components";
-import lucia from '../lucia';
+import lucia from 'lucia-sdk';
+
 const AboutPage = () => {
   console.log('AboutPage',lucia);
   lucia.pageView("About");

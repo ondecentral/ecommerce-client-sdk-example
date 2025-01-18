@@ -3,7 +3,7 @@ import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/action";
 import { Link } from "react-router-dom";
-import lucia from "../lucia";
+import lucia from "lucia-sdk";
 
 const Cart = () => {
   lucia.pageView("Cart");
