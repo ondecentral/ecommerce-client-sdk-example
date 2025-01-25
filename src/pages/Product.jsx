@@ -4,12 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
-import lucia from "../lucia";
+import lucia from "lucia-sdk";
 
 import { Footer, Navbar } from "../components";
 
 const Product = () => {
-  
   const { id } = useParams();
   const [product, setProduct] = useState([]);
   const [similarProducts, setSimilarProducts] = useState([]);

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import lucia from '../lucia'
+import lucia from 'lucia-sdk'
 
 const Navbar = () => {
     const state = useSelector(state => state.handleCart)
@@ -38,8 +38,8 @@ const Navbar = () => {
                         </li>
                     </ul>
                     <div className="buttons text-center">
-                        <NavLink 
-                            to="/login" 
+                        <NavLink
+                            to="/login"
                             className="btn btn-outline-dark m-2"
                             onClick={handleLoginClick}
                         ><i className="fa fa-sign-in-alt mr-1"></i> Login</NavLink>
