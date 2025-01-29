@@ -1,7 +1,8 @@
-import Lucia from "../node_modules/luciasdk-v3/src/index.js";
+import Lucia from "luciasdk-v3";
 
 console.log('Lucia imported:', Lucia);
 const LuciaSDK = Lucia;
+
 const lucia = {
   init: () => {
     console.log('About to initialize SDK');
@@ -10,6 +11,7 @@ const lucia = {
       baseURL: process.env.REACT_APP_BASE_URL,
       api_key: process.env.REACT_APP_API_KEY,
     });
+    LuciaSDK.getClientIP();
   },
 
   pageView: (page) => {
@@ -24,9 +26,14 @@ const lucia = {
       console.error("Tracking conversion failed:", error);
     }
   },
+  findIP: () => {
+    LuciaSDK.findIP();
+  }
 };
 
 // Initialize the SDK
 lucia.init();
+
+
 
 export default lucia;

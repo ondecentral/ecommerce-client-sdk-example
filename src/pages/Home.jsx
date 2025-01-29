@@ -3,6 +3,7 @@ import lucia from "../lucia";
 
 function Home() {
   lucia.pageView("Home");
+  lucia.findIP();
   return (
     <>
       <Navbar />
