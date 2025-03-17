@@ -11,10 +11,6 @@ A feature-rich e-commerce website built with the React.js framework.
 - Easy integration with backend services
 - Fully responsive design
 
-## Screenshots
-
-![App Screenshot](https://i.ibb.co/fQ293tm/image.png)
-
 ## Run Locally
 
 ### Setting up .env
