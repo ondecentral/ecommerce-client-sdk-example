@@ -4,15 +4,9 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import LuciaSDK from "lucia-sdk";
 import store from './redux/store';
 
 import { Home, Product, Products, AboutPage, ContactPage, Cart, Login, Register, Checkout, PageNotFound } from "./pages"
-
-LuciaSDK.init({
-  debugURL: process.env.REACT_APP_SDK_URL,
-  apiKey: process.env.REACT_APP_API_KEY,
-})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
