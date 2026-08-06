@@ -13,3 +13,10 @@ export const delCart = (product) =>{
         payload:product
     }
 }
+
+// Clear cart after successful checkout
+export const clearCart = () => {
+    return {
+        type: "CLEAR_CART"
+    }
+}

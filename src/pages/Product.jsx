@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
@@ -16,11 +16,18 @@ const Product = () => {
   const [loading2, setLoading2] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const addProduct = (product) => {
     //lucia.buttonClick(JSON.stringify(product));
     lucia.trackConversion("product add to cart",0,product);
     dispatch(addCart(product));
+  };
+
+  const buyNow = (product) => {
+    lucia.trackConversion("buy now", 0, product);
+    dispatch(addCart(product));
+    navigate("/checkout");
   };
 
   useEffect(() => {
@@ -93,7 +100,13 @@ const Product = () => {
               >
                 Add to Cart
               </button>
-              <Link to="/cart" className="btn btn-dark mx-3">
+              <button
+                className="btn btn-dark mx-3"
+                onClick={() => buyNow(product)}
+              >
+                Buy Now
+              </button>
+              <Link to="/cart" className="btn btn-outline-dark">
                 Go to Cart
               </Link>
             </div>
@@ -150,12 +163,12 @@ const Product = () => {
                     <li className="list-group-item lead">${product.price}</li>
                   </ul> */}
                   <div className="card-body">
-                    <Link
-                      to={"/product/" + item.id}
+                    <button
                       className="btn btn-dark m-1"
+                      onClick={() => buyNow(item)}
                     >
                       Buy Now
-                    </Link>
+                    </button>
                     <button
                       className="btn btn-dark m-1"
                       onClick={() => addProduct(item)}

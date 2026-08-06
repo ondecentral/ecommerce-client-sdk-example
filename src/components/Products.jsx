@@ -5,7 +5,7 @@ import { addCart } from "../redux/action";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -14,10 +14,16 @@ const Products = () => {
   let componentMounted = true;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const addProduct = (product) => {
     dispatch(addCart(product))
   }
+
+  const buyNow = (product) => {
+    dispatch(addCart(product));
+    navigate("/checkout");
+  };
 
   useEffect(() => {
     const getProducts = async () => {
@@ -106,9 +112,9 @@ const Products = () => {
                     <li className="list-group-item">Vestibulum at eros</li> */}
                 </ul>
                 <div className="card-body">
-                  <Link to={"/product/" + product.id} className="btn btn-dark m-1">
+                  <button className="btn btn-dark m-1" onClick={() => buyNow(product)}>
                     Buy Now
-                  </Link>
+                  </button>
                   <button className="btn btn-dark m-1" onClick={() => addProduct(product)}>
                     Add to Cart
                   </button>
