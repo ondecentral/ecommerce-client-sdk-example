@@ -5,6 +5,7 @@ import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
 import lucia from "lucia-sdk";
+import { trackItemEvent } from "../utils/trackItemEvent";
 
 import { Footer, Navbar } from "../components";
 
@@ -20,12 +21,11 @@ const Product = () => {
 
   const addProduct = (product) => {
     //lucia.buttonClick(JSON.stringify(product));
-    lucia.trackConversion("product add to cart",0,product);
     dispatch(addCart(product));
   };
 
   const buyNow = (product) => {
-    lucia.trackConversion("buy now", 0, product);
+    trackItemEvent("buy now", product);
     dispatch(addCart(product));
     navigate("/checkout");
   };
@@ -47,6 +47,13 @@ const Product = () => {
     };
     getProduct();
   }, [id]);
+
+  useEffect(() => {
+    if (product.id) {
+      lucia.pageView("Product");
+      trackItemEvent("viewItem", product);
+    }
+  }, [product]);
 
   const Loading = () => {
     return (

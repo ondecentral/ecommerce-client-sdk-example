@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, delCart } from "../redux/action";
 import { Link } from "react-router-dom";
 import lucia from "lucia-sdk";
+import { trackItemEvent } from "../utils/trackItemEvent";
 
 const Cart = () => {
-  lucia.pageView("Cart");
+  useEffect(() => {
+    lucia.pageView("Cart");
+  }, []);
   const state = useSelector((state) => state.handleCart);
   const dispatch = useDispatch();
 
@@ -26,10 +29,11 @@ const Cart = () => {
   };
 
   const addItem = (product) => {
-    lucia.trackConversion("item added",0,{product});
+    trackItemEvent("item added", product);
     dispatch(addCart(product));
   };
   const removeItem = (product) => {
+    trackItemEvent("item removed", product);
     dispatch(delCart(product));
   };
 
@@ -91,7 +95,6 @@ const Cart = () => {
                                   className="btn px-3"
                                   onClick={() => {
                                     removeItem(item);
-                                    lucia.trackConversion("item removed",0,{item: item.title});
                                   }}
                                 >
                                   <i className="fas fa-minus"></i>
@@ -103,7 +106,6 @@ const Cart = () => {
                                   className="btn px-3"
                                   onClick={() => {
                                     addItem(item);
-                                    lucia.trackConversion("item added",0,{quantity: item.qty, title: item.title, price: item.price});
                                   }}
                                 >
                                   <i className="fas fa-plus"></i>

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { clearCart } from "../redux/action";
 import lucia from "lucia-sdk";
+import { toItemPayload } from "../utils/trackItemEvent";
 
 const SHIPPING = 30.0;
 
@@ -34,9 +35,9 @@ const Checkout = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const form = event.currentTarget;
-    if (!form.checkValidity()) {
-      form.classList.add("was-validated");
+    const billingAddress = event.currentTarget.elements.address.value;
+    if (!billingAddress || billingAddress.trim() === "") {
+      alert("Billing address is required.");
       return;
     }
 
@@ -64,7 +65,10 @@ const Checkout = () => {
       phone: user.phone,
     });
 
-    lucia.trackConversion("purchase", cart.total, { items: cart.items });
+    lucia.trackConversion("purchase", cart.total, {
+      items: cart.items.map(toItemPayload),
+      testingMode: true,
+    });
 
     dispatch(clearCart());
 
@@ -123,11 +127,7 @@ const Checkout = () => {
                 <h4 className="mb-0">Billing address</h4>
               </div>
               <div className="card-body">
-                <form
-                  className="needs-validation"
-                  noValidate
-                  onSubmit={handleSubmit}
-                >
+                <form onSubmit={handleSubmit}>
                   <div className="row g-3">
                     <div className="col-sm-6 my-1">
                       <label htmlFor="firstName" className="form-label">
@@ -139,11 +139,7 @@ const Checkout = () => {
                         id="firstName"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        required
                       />
-                      <div className="invalid-feedback">
-                        Valid first name is required.
-                      </div>
                     </div>
 
                     <div className="col-sm-6 my-1">
@@ -156,11 +152,7 @@ const Checkout = () => {
                         id="lastName"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        required
                       />
-                      <div className="invalid-feedback">
-                        Valid last name is required.
-                      </div>
                     </div>
 
                     <div className="col-12 my-1">
@@ -174,11 +166,7 @@ const Checkout = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@example.com"
-                        required
                       />
-                      <div className="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                      </div>
                     </div>
 
                     <div className="col-12 my-1">
@@ -192,11 +180,7 @@ const Checkout = () => {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+1 555 000 0000"
-                        required
                       />
-                      <div className="invalid-feedback">
-                        Please enter a valid phone number.
-                      </div>
                     </div>
 
                     <div className="col-12 my-1">
@@ -208,11 +192,7 @@ const Checkout = () => {
                         className="form-control"
                         id="address"
                         placeholder="1234 Main St"
-                        required
                       />
-                      <div className="invalid-feedback">
-                        Please enter your shipping address.
-                      </div>
                     </div>
 
                     <div className="col-12">
@@ -233,13 +213,10 @@ const Checkout = () => {
                         Country
                       </label>
                       <br />
-                      <select className="form-select" id="country" required>
+                      <select className="form-select" id="country">
                         <option value="">Choose...</option>
                         <option>India</option>
                       </select>
-                      <div className="invalid-feedback">
-                        Please select a valid country.
-                      </div>
                     </div>
 
                     <div className="col-md-4 my-1">
@@ -247,26 +224,17 @@ const Checkout = () => {
                         State
                       </label>
                       <br />
-                      <select className="form-select" id="state" required>
+                      <select className="form-select" id="state">
                         <option value="">Choose...</option>
                         <option>Punjab</option>
                       </select>
-                      <div className="invalid-feedback">
-                        Please provide a valid state.
-                      </div>
                     </div>
 
                     <div className="col-md-3 my-1">
                       <label htmlFor="zip" className="form-label">
                         Zip
                       </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="zip"
-                        required
-                      />
-                      <div className="invalid-feedback">Zip code required.</div>
+                      <input type="text" className="form-control" id="zip" />
                     </div>
                   </div>
 
@@ -283,14 +251,10 @@ const Checkout = () => {
                         type="text"
                         className="form-control"
                         id="cc-name"
-                        required
                       />
                       <small className="text-muted">
                         Full name as displayed on card
                       </small>
-                      <div className="invalid-feedback">
-                        Name on card is required
-                      </div>
                     </div>
 
                     <div className="col-md-6">
@@ -301,11 +265,7 @@ const Checkout = () => {
                         type="text"
                         className="form-control"
                         id="cc-number"
-                        required
                       />
-                      <div className="invalid-feedback">
-                        Credit card number is required
-                      </div>
                     </div>
 
                     <div className="col-md-3">
@@ -316,11 +276,7 @@ const Checkout = () => {
                         type="text"
                         className="form-control"
                         id="cc-expiration"
-                        required
                       />
-                      <div className="invalid-feedback">
-                        Expiration date required
-                      </div>
                     </div>
 
                     <div className="col-md-3">
@@ -331,18 +287,14 @@ const Checkout = () => {
                         type="text"
                         className="form-control"
                         id="cc-cvv"
-                        required
                       />
-                      <div className="invalid-feedback">
-                        Security code required
-                      </div>
                     </div>
                   </div>
 
                   <hr className="my-4" />
 
                   <button className="w-100 btn btn-primary" type="submit">
-                    Place order
+                    Pay Now
                   </button>
                 </form>
               </div>
@@ -359,7 +311,7 @@ const Checkout = () => {
       <div className="container my-3 py-3">
         <h1 className="text-center">Checkout</h1>
         <hr />
-        {cartItems.length ? <ShowCheckout /> : <EmptyCart />}
+        {cartItems.length ? ShowCheckout() : EmptyCart()}
       </div>
       <Footer />
     </>

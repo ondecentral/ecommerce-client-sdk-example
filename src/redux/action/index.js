@@ -1,5 +1,8 @@
+import { trackItemEvent } from "../../utils/trackItemEvent";
+
 // For Add Item to Cart
 export const addCart = (product) =>{
+    trackItemEvent("addToCart", product)
     return {
         type:"ADDITEM",
         payload:product
