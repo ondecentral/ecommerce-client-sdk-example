@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
+import { trackItemEvent } from "../utils/trackItemEvent";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -17,10 +18,12 @@ const Products = () => {
   const navigate = useNavigate();
 
   const addProduct = (product) => {
+    trackItemEvent("addToCart", product);
     dispatch(addCart(product))
   }
 
   const buyNow = (product) => {
+    trackItemEvent("buy now", product);
     dispatch(addCart(product));
     navigate("/checkout");
   };
