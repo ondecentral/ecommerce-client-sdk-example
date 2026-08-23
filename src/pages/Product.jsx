@@ -20,7 +20,7 @@ const Product = () => {
   const navigate = useNavigate();
 
   const addProduct = (product) => {
-    //lucia.buttonClick(JSON.stringify(product));
+    trackItemEvent("addToCart", product);
     dispatch(addCart(product));
   };
 
